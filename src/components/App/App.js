@@ -6,7 +6,6 @@ import ShoeIndex from '../ShoeIndex';
 
 const App = () => {
     const [sortId, setSortId] = React.useState('newest');
-
     return (
         <>
             <Header />

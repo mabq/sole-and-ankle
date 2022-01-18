@@ -42,11 +42,24 @@ const ShoeCard = ({
                 <Spacer size={16} />
                 <Row>
                     <Name>{name}</Name>
-                    <Price price={price} salePrice={salePrice}></Price>
+                    <Price
+                        style={{
+                            '--color':
+                                salePrice === null
+                                    ? COLORS.gray[900]
+                                    : COLORS.gray[700],
+                            '--text-decoration':
+                                salePrice === null ? 'none' : 'line-through',
+                        }}
+                    >
+                        {formatPrice(price)}
+                    </Price>
                 </Row>
                 <Row>
                     <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
-                    <SalePrice salePrice={salePrice}></SalePrice>
+                    {salePrice === null ? undefined : (
+                        <SalePrice>{formatPrice(salePrice)}</SalePrice>
+                    )}
                 </Row>
             </Wrapper>
         </Link>
@@ -54,7 +67,6 @@ const ShoeCard = ({
 };
 
 const Link = styled.a`
-    flex: 1 1 250px;
     text-decoration: none;
     color: inherit;
 `;
@@ -93,11 +105,12 @@ const SaleTag = styled(PromoteTagBase)`
     background-color: ${COLORS.primary};
 `;
 
+const tagMap = {
+    'on-sale': <SaleTag>Sale</SaleTag>,
+    'new-release': <JustReleasedTag>Just Released!</JustReleasedTag>,
+};
+
 const PromoteTag = ({ variant }) => {
-    const tagMap = {
-        'on-sale': <SaleTag>Sale</SaleTag>,
-        'new-release': <JustReleasedTag>Just Released!</JustReleasedTag>,
-    };
     return tagMap[variant] || <span></span>;
 };
 
@@ -114,46 +127,19 @@ const Name = styled.h3`
     color: ${COLORS.gray[900]};
 `;
 
-const PriceBase = styled.span`
-    color: ${COLORS.gray[900]};
+const Price = styled.span`
+    color: var(--color);
+    text-decoration: var(--text-decoration);
 `;
-
-const OriginalPrice = styled(PriceBase)`
-    text-decoration: line-through;
-    color: ${COLORS.gray[700]};
-`;
-
-const Price = ({ price, salePrice }) => {
-    let component;
-    const formatedPrice = formatPrice(price);
-    if (salePrice !== null) {
-        component = <OriginalPrice>{formatedPrice}</OriginalPrice>;
-    } else {
-        component = <PriceBase>{formatedPrice}</PriceBase>;
-    }
-    return component;
-};
 
 const ColorInfo = styled.p`
     color: ${COLORS.gray[700]};
 `;
 
-const _SalePrice = styled.span`
+const SalePrice = styled.span`
     font-weight: ${WEIGHTS.medium};
     color: ${COLORS.primary};
 `;
-
-const SalePrice = ({ salePrice }) => {
-    console.log(salePrice);
-    let component;
-    const formatedPrice = formatPrice(salePrice);
-    if (salePrice === null) {
-        component = <span></span>;
-    } else {
-        component = <_SalePrice>{formatedPrice}</_SalePrice>;
-    }
-    return component;
-};
 
 /* ---------------------------- export ---------------------------- */
 

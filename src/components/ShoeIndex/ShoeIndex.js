@@ -12,17 +12,6 @@ import ShoeGrid from '../ShoeGrid';
 const ShoeIndex = ({ sortId, setSortId }) => {
     return (
         <Wrapper>
-            <LeftColumn>
-                <Breadcrumbs>
-                    <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
-                    <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
-                    <Breadcrumbs.Crumb href="/sale/shoes">
-                        Shoes
-                    </Breadcrumbs.Crumb>
-                </Breadcrumbs>
-                <Spacer size={42} />
-                <ShoeSidebar />
-            </LeftColumn>
             <MainColumn>
                 <Header>
                     <Title>Running</Title>
@@ -38,19 +27,32 @@ const ShoeIndex = ({ sortId, setSortId }) => {
                 <Spacer size={34} />
                 <ShoeGrid />
             </MainColumn>
+            <LeftColumn>
+                <Breadcrumbs>
+                    <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
+                    <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
+                    <Breadcrumbs.Crumb href="/sale/shoes">
+                        Shoes
+                    </Breadcrumbs.Crumb>
+                </Breadcrumbs>
+                <Spacer size={42} />
+                <ShoeSidebar />
+            </LeftColumn>
         </Wrapper>
     );
 };
 
 const Wrapper = styled.div`
     display: flex;
-    align-items: flex-start;
+    flex-direction: row-reverse;
+    gap: 32px;
+    align-items: baseline;
 `;
 
 const LeftColumn = styled.div`
-    flex: 0 0 240px;
+    flex: 0 0 248px;
     position: sticky;
-    top: 64px;
+    top: 32px;
 `;
 
 const MainColumn = styled.div`
